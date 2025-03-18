@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import BrowseLostItems from "./pages/BrowseLostItems";
+import ClaimPage from "./pages/ClaimPage";
+import Navbar from "./components/Navbar";
+import CreateLostItemPage from "./pages/CreateLostItemPage"; // Adjust the path as needed
+import SearchLostItems from "./pages/SearchLostItems";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/browse" element={<BrowseLostItems />} />
+        <Route path="/claim" element={<ClaimPage />} />
+        <Route path="/create-item" element={<CreateLostItemPage />} />
+        <Route path="/browse-items" element={<BrowseLostItems />} />
+        <Route path="/search" element={<SearchLostItems />} />
+      </Routes>
+    </Router>
   );
 }
 
