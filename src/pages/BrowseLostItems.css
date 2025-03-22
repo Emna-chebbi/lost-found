@@ -1,0 +1,149 @@
+/* Browse Lost Items Page Styling */
+.browse-lost-items-container {
+    background-color: #f9e5c2;
+    min-height: 100vh;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    width: 100%;
+    margin-top: 80px;
+    margin-bottom: 60px;
+}
+
+.hero-text {
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: #555;
+}
+
+/* Lost Items Grid */
+.lost-items-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Lost Item Widget */
+.lost-item-widget {
+    background-color: #ebffe9;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.edit-button, .delete-button, .browse-claim-button {
+    padding: 8px 15px;  
+    font-size: 0.9rem;   
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-button {
+    background-color: #FFD700;
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #FFB400;
+}
+
+.delete-button {
+    background-color: #FF6347;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #FF4500;
+}
+
+.browse-claim-button {  
+    background-color: #6DC5D1;
+    color: white;
+}
+
+.browse-claim-button:hover {
+    background-color: #0056b3;
+}
+
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.edit-form h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.edit-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.edit-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.save-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.save-button:hover {
+    background-color: #45A049;
+}
+
+.cancel-button {
+    background-color: #FF6347;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #FF4500;
+}

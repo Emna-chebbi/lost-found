@@ -1,10 +1,10 @@
 import React from "react";
 import CreateLostItemForm from "../components/CreateLostItemForm";
+import "./CreateLostItemPage.css"; 
 
 const CreateLostItemPage = () => {
   return (
-    <div>
-      <h1>Create New Lost Item</h1>
+    <div className="create-lost-item-page-container">
       <CreateLostItemForm />
     </div>
   );

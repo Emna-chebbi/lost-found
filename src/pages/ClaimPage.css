@@ -1,0 +1,57 @@
+
+.claim-page-container {
+    background-color: #f9e5c2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.claim-form {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    text-align: center;
+}
+
+.claim-form h2 {
+    font-size: 2rem;
+    color: #15a5ff;
+    margin-bottom: 20px;
+}
+
+.claim-input {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.submit-button {
+    background-color: #2dd64f;
+    color: white;
+    padding: 12px;
+    width: 65%;
+    border: none;
+    border-radius: 18px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #1da411;
+}
+
+.response-message {
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}

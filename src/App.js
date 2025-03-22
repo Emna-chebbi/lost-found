@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import BrowseLostItems from "./pages/BrowseLostItems";
 import ClaimPage from "./pages/ClaimPage";
 import Navbar from "./components/Navbar";
-import CreateLostItemPage from "./pages/CreateLostItemPage"; // Adjust the path as needed
+import CreateLostItemPage from "./pages/CreateLostItemPage"; 
 import SearchLostItems from "./pages/SearchLostItems";
 
 

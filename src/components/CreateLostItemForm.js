@@ -1,129 +1,196 @@
 import React, { useState } from "react";
-import axios from "../services/restService"; // Import the axios instance
+import api from "../services/restService"; 
 
 const CreateLostItemForm = () => {
-  // State to store form values
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [dateLost, setDateLost] = useState("");
-  const [status, setStatus] = useState("Lost"); // Default status as "Lost"
+  const [status, setStatus] = useState("Lost");
+  const [ownerNumber, setOwnerNumber] = useState(""); 
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false); // For handling loading state
+  const [loading, setLoading] = useState(false);
 
-  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Check if form fields are valid before submission
-    if (!name || !description || !location || !dateLost) {
-      setMessage("Please fill all the fields.");
-      return;
-    }
-
-    // Prepare the data to send to the server
-    const newItem = {
-      name,
-      description,
-      location,
-      dateLost,
-      status,
-    };
-
-    setLoading(true); // Set loading to true when submitting the form
-    setMessage(""); // Clear previous messages
+    setLoading(true);
 
     try {
-      // Send POST request to create a new lost item
-      const response = await axios.post("http://localhost:8093/items", newItem);
+      const newLostItem = {
+        name,
+        description,
+        location,
+        dateLost,
+        status,
+        ownerNumber: ownerNumber ? ownerNumber : null, 
+      };
 
-      if (response.status === 201) {
-        setMessage("Lost item created successfully!");
-        // Reset form fields after successful submission
-        setName("");
-        setDescription("");
-        setLocation("");
-        setDateLost("");
-        setStatus("Lost");
-      }
+      
+      const response = await api.post("/items", newLostItem);
+
+      console.log("Lost item reported:", response.data);
+      alert("Lost item reported successfully!");
+
+      setMessage(""); 
+      setName("");
+      setDescription("");
+      setLocation("");
+      setDateLost("");
+      setStatus("Lost");
+      setOwnerNumber(""); 
+
     } catch (error) {
-      setMessage("Error creating lost item: " + (error.response?.data?.message || error.message));
+      console.error("Error reporting lost item:", error.response?.data || error.message);
+      alert("Failed to report lost item.");
+      setMessage("Failed to report lost item.");
     } finally {
-      setLoading(false); // Set loading to false when done
+      setLoading(false);
     }
   };
 
+  
+  const formStyles = {
+    background: "white",
+    padding: "40px",
+    borderRadius: "12px",
+    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
+    width: "600px", 
+    textAlign: "center",
+    margin: "0 auto", 
+  };
+
+  const titleStyles = {
+    color: "#15a5ff",
+    fontWeight: "bold",
+    fontSize: "2rem",
+    marginBottom: "20px",
+  };
+
+  const labelStyles = {
+    fontSize: "1.1rem",
+    fontWeight: "bold",
+    textAlign: "left",
+    display: "block",
+    marginBottom: "5px",
+  };
+
+  const inputStyles = {
+    width: "90%",
+    padding: "12px",
+    marginBottom: "15px",
+    border: "1px solid #ccc",
+    borderRadius: "8px",
+    fontSize: "1rem",
+  };
+
+  const buttonStyles = {
+    backgroundColor: "#2dd64f",
+    color: "white",
+    padding: "12px",
+    width: "65%",
+    border: "none",
+    borderRadius: "18px",
+    fontSize: "1rem",
+    cursor: "pointer",
+    transition: "background-color 0.3s ease",
+  };
+
+  const buttonHoverStyles = {
+    backgroundColor: "#1da411",
+  };
+
+  const messageStyles = {
+    marginTop: "15px",
+    fontSize: "1rem",
+    fontWeight: "bold",
+    color: "#e74c3c",
+  };
+
+  
+  const formLayoutStyles = {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-between", 
+    gap: "20px", 
+  };
+
+  const formFieldStyles = {
+    width: "48%", 
+  };
+
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">Create New Lost Item</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block">Item Name</label>
+    <div style={formStyles}>
+      <h2 style={titleStyles}>Report New Lost Item</h2>
+      <form onSubmit={handleSubmit} className="space-y-4" style={formLayoutStyles}>
+        <div style={formFieldStyles}>
+          <label style={labelStyles}>Lost Item Name</label>
           <input
             type="text"
-            className="border p-2 w-full rounded"
+            style={inputStyles}
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
 
-        <div>
-          <label className="block">Description</label>
+        <div style={formFieldStyles}>
+          <label style={labelStyles}>Description</label>
           <input
             type="text"
-            className="border p-2 w-full rounded"
+            style={inputStyles}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
           />
         </div>
 
-        <div>
-          <label className="block">Location</label>
+        <div style={formFieldStyles}>
+          <label style={labelStyles}>Location</label>
           <input
             type="text"
-            className="border p-2 w-full rounded"
+            style={inputStyles}
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
           />
         </div>
 
-        <div>
-          <label className="block">Date Lost</label>
+        <div style={formFieldStyles}>
+          <label style={labelStyles}>Date Lost</label>
           <input
             type="date"
-            className="border p-2 w-full rounded"
+            style={inputStyles}
             value={dateLost}
             onChange={(e) => setDateLost(e.target.value)}
             required
           />
         </div>
 
-        <div>
-          <label className="block">Status</label>
-          <select
-            className="border p-2 w-full rounded"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <option value="Lost">Lost</option>
-            <option value="Found">Found</option>
-            <option value="Claimed">Claimed</option>
-          </select>
+        <div style={formFieldStyles}>
+          <label style={labelStyles}>Contact</label>
+          <input
+            type="number"
+            style={inputStyles}
+            value={ownerNumber}
+            onChange={(e) => setOwnerNumber(e.target.value)}
+            placeholder="Enter Number"
+          />
         </div>
 
-        <button
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded"
-          disabled={loading} // Disable button while loading
-        >
-          {loading ? "Submitting..." : "Submit"}
-        </button>
+        <div style={{ width: "100%" }}> 
+          <button
+            type="submit"
+            style={buttonStyles}
+            onMouseOver={(e) => (e.target.style.backgroundColor = buttonHoverStyles.backgroundColor)}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#2dd64f")}
+            disabled={loading}
+          >
+            {loading ? "Submitting..." : "Submit"}
+          </button>
+        </div>
       </form>
 
-      {message && <p className="mt-4 text-center text-red-500">{message}</p>}
+      {message && <p style={messageStyles}>{message}</p>}
     </div>
   );
 };

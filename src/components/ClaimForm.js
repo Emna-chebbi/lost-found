@@ -3,7 +3,7 @@ import axios from "axios";
 
 const ClaimForm = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
-    lostItemId: "",
+    lostItemName: "",  
     claimantName: "",
     claimantContact: "",
   });
@@ -27,9 +27,9 @@ const ClaimForm = ({ onSuccess }) => {
       <h2 className="text-lg font-semibold">Claim a Lost Item</h2>
       <input
         type="text"
-        name="lostItemId"
-        placeholder="Lost Item ID"
-        value={formData.lostItemId}
+        name="lostItemName"  
+        placeholder="Lost Item Name"
+        value={formData.lostItemName}
         onChange={handleChange}
         className="border p-2 rounded w-full my-2"
       />

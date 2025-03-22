@@ -1,56 +1,57 @@
 import React, { useState } from "react";
 import { submitClaim } from "../services/soapService";
-import { Card } from '../components/ui/card';
-import { Input } from '../components/ui/input';
-import { Button } from '../components/ui/button';
-
-
+import "./ClaimPage.css"; 
 
 function ClaimPage() {
   const [claimData, setClaimData] = useState({
-    lostItemId: "",
+    lostItemName: "",  
     claimantName: "",
     claimantContact: "",
   });
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
 
-  const handleSubmit = async () => {
+  const [responseMessage, setResponseMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const res = await submitClaim(claimData);
-      setResponse(res);
-      setError(null);
-    } catch (err) {
-      setError("Failed to submit claim.");
+      const response = await submitClaim(claimData);
+      console.log("Response:", response);
+      setResponseMessage("Claim submitted successfully!");
+    } catch (error) {
+      console.error("Error:", error.response ? error.response.data : error.message);
+      setResponseMessage(`Failed to submit claim: ${error.message}`);
     }
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">Claim a Lost Item</h2>
-
-      <Card className="p-4">
-        <Input 
-          type="text" 
-          placeholder="Lost Item ID" 
-          onChange={(e) => setClaimData({ ...claimData, lostItemId: e.target.value })} 
+    <div className="claim-page-container">
+      <form className="claim-form" onSubmit={handleSubmit}>
+        <h2>Claim a Lost Item</h2>
+        <p>Upon successful verification, we will contact you to arrange the retrieval of your claimed property.</p>
+        <input
+          type="text"
+          className="claim-input"
+          placeholder="Lost Item Name"
+          value={claimData.lostItemName}
+          onChange={(e) => setClaimData({ ...claimData, lostItemName: e.target.value })}
         />
-        <Input 
-          type="text" 
-          placeholder="Your Name" 
-          onChange={(e) => setClaimData({ ...claimData, claimantName: e.target.value })} 
+        <input
+          type="text"
+          className="claim-input"
+          placeholder="Your Name"
+          value={claimData.claimantName}
+          onChange={(e) => setClaimData({ ...claimData, claimantName: e.target.value })}
         />
-        <Input 
-          type="text" 
-          placeholder="Your Contact Info" 
-          onChange={(e) => setClaimData({ ...claimData, claimantContact: e.target.value })} 
+        <input
+          type="text"
+          className="claim-input"
+          placeholder="Your Contact"
+          value={claimData.claimantContact}
+          onChange={(e) => setClaimData({ ...claimData, claimantContact: e.target.value })}
         />
-
-        <Button onClick={handleSubmit} className="mt-4">Submit Claim</Button>
-
-        {response && <p className="text-green-500 mt-2">Claim Submitted Successfully</p>}
-        {error && <p className="text-red-500 mt-2">{error}</p>}
-      </Card>
+        <button type="submit" className="submit-button">Submit Claim</button>
+      </form>
+      {responseMessage && <p className="response-message">{responseMessage}</p>}
     </div>
   );
 }
